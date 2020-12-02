@@ -1,0 +1,61 @@
+<html>
+<head>
+<script type="text/javascript">   
+var hclimber;
+function initialize(){
+	var str;
+   hclimber = new Worker('hill_climb.js');
+   hclimber.onmessage = function (event) {
+	 str = event.data;
+	 if (str.charAt(0) == '0')
+     	document.getElementById('output_area').value = str.slice(1);
+     else if (str.charAt(0) == '1'){
+     	//alert(str.slice(1));
+     	document.getElementById('status').value = str.slice(1);
+ 	}
+     else
+     	document.getElementById('output_area').value = str;   
+   };
+  
+}
+function do_solve(){
+	var str,max_trials;
+	
+	max_trials = parseInt(document.getElementById('numb_trials').value);	
+	str = '@'+max_trials;
+	hclimber.postMessage(str);  	
+	str = document.getElementById('input_area').value;	
+	hclimber.postMessage(str);  
+}
+function do_clear(){
+	document.getElementById('output_area').value = '';
+	document.getElementById('input_area').value = '';
+	document.getElementById('status').value = 'Idle';
+}
+
+</script>
+
+</head>
+<body bgcolor="Silver" >
+<h3>Simple Pat solver using Web Workers</h3> (scoring by logs of trigraphs)<br><br>
+
+Ciphertext:<br>
+<textarea id="input_area" cols=80 rows = 5>
+</textarea><br>
+Best trial decrypt:<br>
+<textarea id="output_area" cols=80 rows = 5>
+</textarea>
+<br>
+<input type="button" value="Solve" onclick=do_solve();>
+Status: 
+<input type="text" value="idle" id="status">
+Number of trial decrypts: 
+<input type="text" value="1000000" id="numb_trials">
+
+<input type="button" value="Clear" onclick=do_clear();>
+<script type="text/javascript">
+initialize();
+</script>
+
+</body>
+</html>
