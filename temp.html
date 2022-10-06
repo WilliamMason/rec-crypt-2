@@ -1,51 +1,31 @@
 <html>
-<!-- Basic skeleton. A one button function call
--->
 <head>
 <script type="text/javascript">
-function letters_only(str){ // remove everthing except letters
-	str = str.toLowerCase();
-	return str.replace(/[^a-z]/g,'');
+function get_char_codes(str){
+var i,j,k,c,n,s;
+
+s = ''
+for (i=0;i<str.length;i++){
+	c = str.charAt(i);
+	n = c.charCodeAt(0);
+	s += c+' has character code of '+n+'\n';
 }
-
-
+return(s);
+}
 function do_processing(){
     var out_str,s,str;
-    var i,j,c,n,s,lo,hi;
     
 	out_str="";
 	str = document.getElementById('input_area').value;
-	str = letters_only(str);
-	out_str += "The input string was: "+str+'\n';
-	var len = str.length;
-	out_str += "length is: "+len+"\n"
-	if (len >= 150 && len <= 200)
-	  out_str += "Grandpre OK\n";
-	 
-	if (len >= 50 && len <= 75)
-		  out_str += "Homophonic OK\n";
-	if (len >=60 && len <= 120)
-		  out_str += "Monome-dinome OK\n";
-	lo = len/12;
-	hi = len/8;
-	out_str += "nihilist substituton for periods: "+lo.toFixed(0)+' to ' + hi.toFixed(0)+'\n';;
-	lo = len/3;
-	hi = len/2.5;
-	out_str += "numbered key for extended key length : "+lo.toFixed(0)+' to ' + hi.toFixed(0)+'\n';;
-	if (len >= 50 && len <= 75)
-		  out_str += "Morbit OK\n";
-	if (len >= 80 && len <= 100)
-		  out_str += "Pollux OK\n";
-	if (len >= 75 && len <= 100)
-		  out_str += "Tridigltal OK\n";
-		  
+	out_str += "The input string was: "+str;+'\n';
+	out_str += get_char_codes(str);
 	document.getElementById('output_area').value = out_str;
 }
 </script>
 </head>
 <body bgcolor="Silver">
-
- <h3> Numerical cipher length rules for a given plaintext</h3>
+<h3> Show char codes</h3>
+How do they differ with ANSI and ETF-8?
 <br><br>
 Input:<br>
 <textarea id="input_area" cols=80 >
